@@ -19,12 +19,12 @@ phases:
        - echo "Installing composer deps"
        - composer install
        - mv .env.example .env
-       - echo "APP_URL=http://shivam-verma.ml" >> .env
-       - echo "APP_NAME=travellist" >> .env
-       - echo "DB_DATABASE=travellist" >> .env
-       - echo "DB_USERNAME=travellist_user" >> .env
-       - echo "DB_HOST="" >> .env
-       - echo "DB_PASSWORD=password" >> .env
+       - echo "APP_URL=http://anshulkakran.tk" >> .env
+       - echo "APP_NAME=" >> Laravel.env
+       - echo "DB_DATABASE=laravel" >> .env
+       - echo "DB_USERNAME=root" >> .env
+       - echo "DB_HOST=" >> .env
+       - echo "DB_PASSWORD=Hrhk" >> .env
        - php artisan key:generate
       # - sudo php artisan test
   post_build:
