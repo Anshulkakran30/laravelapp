@@ -1,23 +1,36 @@
 version: 0.2
 phases:
-   install:
-     runtime-versions:
-         php: 7.4
-         nodejs: 12.x
-     commands:
-         - apt-get update -y
-         - apt-get install -y libpq-dev libzip-dev
-         - apt-get install -y php-pgsql
-         - curl -sS <https://getcomposer.org/installer> | php -- --install-dir=/usr/local/bin --filename=composer
-          cp .env.staging .env
-         - composer install
-         - npm install
-         - cp .env.staging .env
-         - composer install
-         - npm install
-         - npm run production
-         - php artisan migrate --force
-         - php artisan db:seed
+  pre_build:
+    commands:
+       - sudo apt update -y
+      # - sudo apt install nodejs npm -y
+       - sudo apt install php-fpm php-mysql -y
+       - sudo apt install php-mbstring php-xml php-bcmath -y
+       - php --version
+       - sudo apt install php-cli unzip -y
+       - curl -sS https://getcomposer.org/installer -o /tmp/composer-setup.php
+       - HASH=`curl -sS https://composer.github.io/installer.sig`
+       - php -r "if (hash_file('SHA384', '/tmp/composer-setup.php') === '$HASH') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+       - sudo php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer
+       - composer --version
+  build:
+    commands:
+       - echo Build started on date
+       - echo "Installing composer deps"
+       - composer install
+       - mv .env.example .env
+       - echo "APP_URL=http://shivam-verma.ml" >> .env
+       - echo "APP_NAME=travellist" >> .env
+       - echo "DB_DATABASE=travellist" >> .env
+       - echo "DB_USERNAME=travellist_user" >> .env
+       - echo "DB_HOST="" >> .env
+       - echo "DB_PASSWORD=password" >> .env
+       - php artisan key:generate
+      # - sudo php artisan test
+  post_build:
+    commands:
+       - echo Build completed on date
+       
 artifacts:
    files:
          - '**/*'
