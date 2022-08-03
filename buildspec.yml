@@ -8,15 +8,15 @@ phases:
        - sudo apt install php-mbstring php-xml php-bcmath -y
        - php --version
        - sudo apt install php-cli unzip -y
-       - curl -sS https://getcomposer.org/installer -o /tmp/composer-setup.php
-       - HASH=`curl -sS https://composer.github.io/installer.sig`
-       - php -r "if (hash_file('SHA384', '/tmp/composer-setup.php') === '$HASH') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
-       - sudo php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer
-       - composer --version
+       #- curl -sS https://getcomposer.org/installer -o /tmp/composer-setup.php
+       #- HASH=`curl -sS https://composer.github.io/installer.sig`
+       #- php -r "if (hash_file('SHA384', '/tmp/composer-setup.php') === '$HASH') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+       #- sudo php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer
+       #- composer --version
   build:
     commands:
        - echo Build started on date
-       - echo "Installing composer deps"
+       #- echo "Installing composer deps"
        - composer install
        - mv .env.example .env
        - echo "APP_URL=http://anshulkakran.tk" >> .env
